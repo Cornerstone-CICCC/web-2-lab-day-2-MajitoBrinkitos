@@ -65,10 +65,15 @@ const fetchData = (userId) => {
       success: function(result){
         const todosContent = $('.todos ul');
         todosContent.empty();
-        result.todos.forEach(todo => {
-          const listItem = $('<li></li>').text(todo.todo);
-          todosContent.append(listItem);
-        });
+
+        if(result.todos && result.todos.length > 0){
+          result.todos.forEach(todo => {
+            const listItem = $('<li></li>').text(todo.todo);
+            todosContent.append(listItem);
+          });
+        } else {
+          todosContent.append(`<li>User has no todos</li>`);
+        }
       },
       //error
       error: function(xhr, status, error){
