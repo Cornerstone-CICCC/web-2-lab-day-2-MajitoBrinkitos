@@ -46,10 +46,15 @@ const fetchData = (userId) => {
       success: function(result){
         const postsContent = $('.posts ul');
         postsContent.empty();
-        result.posts.forEach(post => {
-          postsContent.append(`<li>${post.title}</li>`);
-          postsContent.append(`${post.body}`);
-        });
+        
+        if(result.posts && result.posts.length > 0){
+          result.posts.forEach(post => {
+            postsContent.append(`<li>${post.title}</li>`);
+            postsContent.append(`${post.body}`);
+          });
+        } else {
+          postsContent.append('<li>No posts available</li>');
+        }
       },
       //error
       error: function(xhr, status, error){
